@@ -93,7 +93,8 @@ def load_next_prev_image(context, prev=False):
 
         area.spaces[0].image = new_image
 
-    bpy.ops.image.view_all(fit_view=True)
+    if context.scene.convimg_props.fit_image:
+        bpy.ops.image.view_all(fit_view=True)
 
     # Remove prev shown image
     #if image.users == 1:
@@ -294,15 +295,27 @@ class CONVIMG_PT_image_loader(bpy.types.Panel):
             else:
                 o.use_flip_vertical = False
                 o.use_flip_horizontal = True
+        c.prop(context.scene.convimg_props, 'fit_image')
+
+class CONVIMGSceneProps(bpy.types.PropertyGroup):
+    fit_image : BoolProperty(
+            name = 'Fit Image into Area',
+            description = 'Make image fit into area after next/prev image',
+            default=True
+            )
 
 def register():
     bpy.utils.register_class(YNextImageLoader)
     bpy.utils.register_class(YPrevImageLoader)
     bpy.utils.register_class(CONVIMG_PT_image_loader)
+    bpy.utils.register_class(CONVIMGSceneProps)
     set_keybind()
+
+    bpy.types.Scene.convimg_props = PointerProperty(type=CONVIMGSceneProps)
 
 def unregister():
     bpy.utils.unregister_class(YNextImageLoader)
     bpy.utils.unregister_class(YPrevImageLoader)
     bpy.utils.unregister_class(CONVIMG_PT_image_loader)
+    bpy.utils.unregister_class(CONVIMGSceneProps)
     remove_keybind()
