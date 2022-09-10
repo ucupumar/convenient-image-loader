@@ -93,6 +93,8 @@ def load_next_prev_image(context, prev=False):
 
         area.spaces[0].image = new_image
 
+    bpy.ops.image.view_all(fit_view=True)
+
     # Remove prev shown image
     #if image.users == 1:
     #    bpy.data.images.remove(image)
