@@ -122,7 +122,7 @@ class YPrevImageLoader(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        return context.area.type == 'IMAGE_EDITOR'
+        return context.area and context.area.type == 'IMAGE_EDITOR'
 
     def execute(self, context):
         load_next_prev_image(context, prev=True)
