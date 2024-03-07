@@ -20,7 +20,7 @@ def get_first_few_numbers(line):
 def load_next_prev_image(context, prev=False):
     area = context.area
     image = area.spaces[0].image
-    if image and image.packed_file or image.filepath == '':
+    if not image or image.packed_file or image.filepath == '':
         return {'CANCELLED'}
 
     unpacked_path = bpy.path.abspath(image.filepath)
