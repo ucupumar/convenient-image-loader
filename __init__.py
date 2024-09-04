@@ -31,7 +31,7 @@ def load_next_prev_image(context, prev=False):
     cur_img_name = bpy.path.basename(image.filepath)
 
     img_names = []
-    valid_images = [".jpg",".gif",".png",".tga", ".jpeg", ".mp4"]
+    valid_images = [".jpg",".gif",".png",".tga", ".jpeg", ".mp4", ".webp"]
     for f in os.listdir(folder):
         ext = os.path.splitext(f)[1]
         if ext.lower() not in valid_images:
